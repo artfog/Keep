@@ -29,7 +29,7 @@ class KeepRecyclerAdapter(
         val item = items[position]
         holder.itemView.textTitle.text = item.text_title
         holder.itemView.textMore.text = item.text_long
-
+        holder.itemView.koko.text = item.tid.toString()
         holder.itemView.setOnClickListener {
             listener.itemClicked(items[position])
         }

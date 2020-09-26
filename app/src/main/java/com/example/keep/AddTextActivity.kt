@@ -16,7 +16,7 @@ class AddTextActivity : AppCompatActivity() {
 
     private val items = mutableListOf<TextItems>()
 
-
+    private lateinit var adapter: KeepRecyclerAdapter
 
 
 
@@ -50,18 +50,20 @@ class AddTextActivity : AppCompatActivity() {
         val item = TextItems(editTitle.text.toString(), editTextLong.text.toString())
         item.tid = db.textItemDao().insertAll(item).first()
         items.add(item)
-        //adapter.notifyItemInserted(items.size+1)
-       // mainItems.smoothScrollToPosition(0)
-
-        finish()
+        adapter.notifyItemInserted(items.size+1)
+      //  mainItems.smoothScrollToPosition(0)
+    val intent = Intent(this, MainActivity ::class.java)
+    startActivity(intent)
+      //  finish()
     }
 
     private fun removeItem() {
-        lateinit var adapter: KeepRecyclerAdapter
+
         val id = intent.getLongExtra(EXTRA_ID, 0)
         val item = db.textItemDao().getItemById(id)
         db.textItemDao().delete(item)
         val position = items.indexOfFirst { it.tid == item.tid }
+        println("id $id")
         adapter.notifyItemRemoved(position)
         finish()
     }
@@ -74,8 +76,8 @@ class AddTextActivity : AppCompatActivity() {
                 text_long = editTextLong.text.toString()
             )
         )
-
-        val intent = Intent().putExtra(EXTRA_ID, item.tid)
+        println("id $id")
+        val intent = Intent().putExtra(EXTRA_ID, item.tid,)
         setResult(RESULT_OK, intent)
 
         finish()
