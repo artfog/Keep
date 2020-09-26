@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_default" />
+    <dimen name="text_title" />
+    <dimen name="margin_card" />
+    <dimen name="default_card_radius" />
+</resources>
