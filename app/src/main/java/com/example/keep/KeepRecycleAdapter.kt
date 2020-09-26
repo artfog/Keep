@@ -1,4 +1,5 @@
 package com.example.keep
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +30,7 @@ class KeepRecyclerAdapter(
         val item = items[position]
         holder.itemView.textTitle.text = item.text_title
         holder.itemView.textMore.text = item.text_long
+        if (item.text_bg_color != "") holder.itemView.setBackgroundColor(Color.parseColor(item.text_bg_color))
         holder.itemView.setOnClickListener {
             listener.itemClicked(items[position])
         }

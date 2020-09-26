@@ -1,12 +1,17 @@
 package com.example.keep
 
+
+import android.app.AlertDialog
+import android.content.ContentProvider
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.keep.MainActivity.Companion.EXTRA2
 import com.example.keep.MainActivity.Companion.EXTRA_ID
 import kotlinx.android.synthetic.main.activity_add_text.*
@@ -18,8 +23,6 @@ class AddTextActivity : AppCompatActivity() {
     private val items = mutableListOf<TextItems>()
 
     private lateinit var adapter: KeepRecyclerAdapter
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +51,11 @@ class AddTextActivity : AppCompatActivity() {
 //
     private fun appendItem() {
 
-        val item = TextItems(editTitle.text.toString(), editTextLong.text.toString())
+        var colorBG = textBgColor.toString()
+        if (colorBG == "Red") colorBG = "#F29082"
+        else if(colorBG == "Green") colorBG = "#A7F282"
+        else colorBG = "#A7F282"
+        val item = TextItems(editTitle.text.toString(), editTextLong.text.toString(), colorBG)
         item.tid = db.textItemDao().insertAll(item).first()
        // val tids = db.textItemDao().insertAll(item).first()
            // items.add(item)
@@ -74,6 +81,7 @@ class AddTextActivity : AppCompatActivity() {
         finish()
 
     }
+
     private fun updateItem() {
         val id = intent.getLongExtra(EXTRA_ID, 0)
         val item = db.textItemDao().getItemById(id)
@@ -96,9 +104,6 @@ class AddTextActivity : AppCompatActivity() {
         return true
     }
 
-
-
-
     //back button
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
@@ -107,15 +112,34 @@ class AddTextActivity : AppCompatActivity() {
                 true
             }
             R.id.shareInfo -> {
-                Toast.makeText(
-                    this,
-                    "Clicked menu icon",
-                    Toast.LENGTH_SHORT
-                ).show()
+
+
+                val sendIntent = Intent(Intent.ACTION_SENDTO).apply {
+                    data = Uri.parse("mailto:")
+//                  putExtra(Intent.EXTRA_EMAIL, arrayOf(editEmail.text.toString()))
+                    putExtra(Intent.EXTRA_SUBJECT, editTitle.text.toString())
+                    putExtra(Intent.EXTRA_TEXT, editTextLong.text.toString())
+                }
+                intent.resolveActivity(packageManager)?.let {
+                    startActivity(sendIntent)
+                }
                 true
             }
             R.id.deleteItem -> {
-                removeItem()
+
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle(R.string.delete)
+                .setMessage(R.string.delete_info)
+                    .setPositiveButton(R.string.delete) { _, _ ->
+                        removeItem()
+                        Toast.makeText(this, R.string.item_delete, Toast.LENGTH_LONG).show()
+                    }
+                    .setNegativeButton(R.string.cancel) { _, _ -> }
+                val dialog = builder.create()
+                dialog.show()
+
+
+
                 true
             }
             else -> super.onOptionsItemSelected(item)

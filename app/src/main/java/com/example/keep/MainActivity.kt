@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity(), ClickListener {
                 adapter.notifyItemChanged(position)
             }
 //            if (vvv == 2L) {
+
 //                adapter.notifyItemInserted(items.size+1)
 //                mainItems.smoothScrollToPosition(0)
 //            }

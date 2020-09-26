@@ -1,5 +1,6 @@
 package com.example.keep
 
+import androidx.core.widget.TintableCompoundDrawablesView
 import androidx.room.*
 
 
@@ -8,7 +9,7 @@ import androidx.room.*
 data class TextItems(
     val text_title: String,
     val text_long: String,
-    //val text_item_color: String,
+    val text_bg_color: String,
     @PrimaryKey(autoGenerate = true) var tid: Long = 0
 )
 
