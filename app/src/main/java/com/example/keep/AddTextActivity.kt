@@ -35,8 +35,12 @@ class AddTextActivity : AppCompatActivity() {
 
         if (id > 0){
             addtextButton.text = getString(R.string.save)
+
             editTitle.setText(item.text_title)
             editTextLong.setText(item.text_long)
+            val units = resources.getStringArray(R.array.color_list)
+
+            textBgColor.setSelection(units.indexOfFirst { it == item.text_bg_color })
             addtextButton.setOnClickListener { updateItem() }
 
             //imageDeleteButton.setOnClickListener { removeItem() }
@@ -51,11 +55,7 @@ class AddTextActivity : AppCompatActivity() {
 //
     private fun appendItem() {
 
-        var colorBG = textBgColor.toString()
-        if (colorBG == "Red") colorBG = "#F29082"
-        else if(colorBG == "Green") colorBG = "#A7F282"
-        else colorBG = "#A7F282"
-        val item = TextItems(editTitle.text.toString(), editTextLong.text.toString(), colorBG)
+        val item = TextItems(editTitle.text.toString(), editTextLong.text.toString(), textBgColor.selectedItem.toString())
         item.tid = db.textItemDao().insertAll(item).first()
        // val tids = db.textItemDao().insertAll(item).first()
            // items.add(item)
@@ -85,10 +85,12 @@ class AddTextActivity : AppCompatActivity() {
     private fun updateItem() {
         val id = intent.getLongExtra(EXTRA_ID, 0)
         val item = db.textItemDao().getItemById(id)
+
         db.textItemDao().update(
             item.copy(
                 text_title = editTitle.text.toString(),
-                text_long = editTextLong.text.toString()
+                text_long = editTextLong.text.toString(),
+                text_bg_color = textBgColor.selectedItem.toString()
             )
         )
        //println("id $id")

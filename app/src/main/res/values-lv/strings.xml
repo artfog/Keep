@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Keep</string>
+    <string name="add">Pievienot</string>
+    <string name="title">Virsraksts:</string>
+    <string name="text">Teksts:</string>
+    <string name="add_text">Pievienot tekstu</string>
+    <string name="save">Saglabāt</string>
+    <string name="delete">Dzēst</string>
+    <string name="cancel">Atcelt</string>
+    <string name="share">Kopīgot</string>
+    <string name="color">Izvēlies krāsu:</string>
+    <string name="item_delete">Ieraksts izdzēsts!</string>
+    <string name="delete_info">Vai tiešām vēlies dzēst šo ierakstu?</string>
+</resources>

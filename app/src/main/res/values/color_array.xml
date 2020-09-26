@@ -2,10 +2,10 @@
 <resources>
     <string-array name="color_list">
         <item />
-        <item>Green</item>
         <item>Red</item>
         <item>Blue</item>
-        <item>Yellow</item>
+        <item>Green</item>
+        <item>Pink</item>
     </string-array>
 
 </resources>

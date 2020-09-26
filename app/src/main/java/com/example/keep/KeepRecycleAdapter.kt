@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_add_text.*
 import kotlinx.android.synthetic.main.item_text.view.*
 
 
@@ -30,7 +31,13 @@ class KeepRecyclerAdapter(
         val item = items[position]
         holder.itemView.textTitle.text = item.text_title
         holder.itemView.textMore.text = item.text_long
-        if (item.text_bg_color != "") holder.itemView.setBackgroundColor(Color.parseColor(item.text_bg_color))
+        var colorBG = item.text_bg_color
+        if (colorBG == "Red") colorBG = "#F09393"
+        else if(colorBG == "Green") colorBG = "#A7F282"
+        else if(colorBG == "Blue") colorBG = "#82D2F2"
+        else if(colorBG == "Pink") colorBG = "#F2ACF3"
+        else colorBG = "#F2F6BC"
+        if (item.text_bg_color != "") holder.itemView.setBackgroundColor(Color.parseColor(colorBG))
         holder.itemView.setOnClickListener {
             listener.itemClicked(items[position])
         }

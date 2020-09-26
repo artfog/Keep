@@ -23,12 +23,11 @@ class MainActivity : AppCompatActivity(), ClickListener {
         adapter = KeepRecyclerAdapter(this, items)
         mainItems.adapter = adapter
 
-        mainButtonAdd.setOnClickListener {
+        imageAddButton.setOnClickListener {
             val intent = Intent(this,AddTextActivity::class.java)
                 .putExtra(EXTRA_ID, 0)
             startActivityForResult(intent, REQUEST_CODE_DETAILS)
-//            val intent = Intent(this, AddTextActivity ::class.java)
-//            startActivity(intent)
+
           }
     }
 
