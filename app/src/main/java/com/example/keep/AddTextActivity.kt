@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import com.example.keep.MainActivity.Companion.EXTRA2
 import com.example.keep.MainActivity.Companion.EXTRA_ID
 import kotlinx.android.synthetic.main.activity_add_text.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -35,11 +36,11 @@ class AddTextActivity : AppCompatActivity() {
             editTextLong.setText(item.text_long)
             addtextButton.setOnClickListener { updateItem() }
 
-            imageDeleteButton.setOnClickListener { removeItem() }
+            //imageDeleteButton.setOnClickListener { removeItem() }
         }
         else {
-          
-            imageDeleteButton.setVisibility(View.INVISIBLE)
+
+            //imageDeleteButton.setVisibility(View.INVISIBLE)
             addtextButton.setOnClickListener { appendItem() }
         }
     }
@@ -49,12 +50,14 @@ class AddTextActivity : AppCompatActivity() {
 
         val item = TextItems(editTitle.text.toString(), editTextLong.text.toString())
         item.tid = db.textItemDao().insertAll(item).first()
-        items.add(item)
-        adapter.notifyItemInserted(items.size+1)
-      //  mainItems.smoothScrollToPosition(0)
-    val intent = Intent(this, MainActivity ::class.java)
-    startActivity(intent)
-      //  finish()
+       // val tids = db.textItemDao().insertAll(item).first()
+           // items.add(item)
+    //        adapter.notifyItemInserted(items.size+1)
+    //        mainItems.smoothScrollToPosition(0)
+        //println("tid = $tids")
+        val intent = Intent().putExtra(EXTRA2,3L)
+        setResult(RESULT_OK, intent)
+        finish()
     }
 
     private fun removeItem() {
@@ -62,10 +65,14 @@ class AddTextActivity : AppCompatActivity() {
         val id = intent.getLongExtra(EXTRA_ID, 0)
         val item = db.textItemDao().getItemById(id)
         db.textItemDao().delete(item)
-        val position = items.indexOfFirst { it.tid == item.tid }
-        println("id $id")
-        adapter.notifyItemRemoved(position)
+//        val position = items.indexOfFirst { it.tid == item.tid }
+//        println("id $id")
+//        adapter.notifyItemRemoved(position)
+
+        val intent = Intent().putExtra(EXTRA_ID, item.tid).putExtra(EXTRA2,3L)
+        setResult(RESULT_OK, intent)
         finish()
+
     }
     private fun updateItem() {
         val id = intent.getLongExtra(EXTRA_ID, 0)
@@ -76,42 +83,43 @@ class AddTextActivity : AppCompatActivity() {
                 text_long = editTextLong.text.toString()
             )
         )
-        println("id $id")
-        val intent = Intent().putExtra(EXTRA_ID, item.tid,)
+       //println("id $id")
+        val intent = Intent().putExtra(EXTRA_ID, item.tid).putExtra(EXTRA2,1L)
         setResult(RESULT_OK, intent)
 
         finish()
     }
 
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        menuInflater.inflate(R.menu.menu_settings, menu)
-//        return true
-//    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val id = intent.getLongExtra(EXTRA_ID, 0)
+        if (id > 0) menuInflater.inflate(R.menu.menu_settings, menu)
+        return true
+    }
 
 
 
 
     //back button
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return when (item.itemId) {
-//            android.R.id.home -> {
-//                finish()
-//                true
-//            }
-//            R.id.shareInfo -> {
-//                Toast.makeText(
-//                    this,
-//                    "Clicked menu icon",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//                true
-//            }
-////            R.id.deleteItem -> {
-////                removeItem()
-////                true
-////            }
-//            else -> super.onOptionsItemSelected(item)
-//        }
-//    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            R.id.shareInfo -> {
+                Toast.makeText(
+                    this,
+                    "Clicked menu icon",
+                    Toast.LENGTH_SHORT
+                ).show()
+                true
+            }
+            R.id.deleteItem -> {
+                removeItem()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
 }
