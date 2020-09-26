@@ -3,7 +3,10 @@ package com.example.keep
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import com.example.keep.MainActivity.Companion.EXTRA_ID
 import kotlinx.android.synthetic.main.activity_add_text.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -13,7 +16,7 @@ class AddTextActivity : AppCompatActivity() {
 
     private val items = mutableListOf<TextItems>()
 
-    private lateinit var adapter: KeepRecyclerAdapter
+
 
 
 
@@ -47,14 +50,14 @@ class AddTextActivity : AppCompatActivity() {
         val item = TextItems(editTitle.text.toString(), editTextLong.text.toString())
         item.tid = db.textItemDao().insertAll(item).first()
         items.add(item)
-        adapter.notifyItemInserted(items.size+1)
-        mainItems.smoothScrollToPosition(0)
+        //adapter.notifyItemInserted(items.size+1)
+       // mainItems.smoothScrollToPosition(0)
 
         finish()
     }
 
     private fun removeItem() {
-
+        lateinit var adapter: KeepRecyclerAdapter
         val id = intent.getLongExtra(EXTRA_ID, 0)
         val item = db.textItemDao().getItemById(id)
         db.textItemDao().delete(item)
@@ -77,4 +80,36 @@ class AddTextActivity : AppCompatActivity() {
 
         finish()
     }
+
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        menuInflater.inflate(R.menu.menu_settings, menu)
+//        return true
+//    }
+
+
+
+
+    //back button
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        return when (item.itemId) {
+//            android.R.id.home -> {
+//                finish()
+//                true
+//            }
+//            R.id.shareInfo -> {
+//                Toast.makeText(
+//                    this,
+//                    "Clicked menu icon",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//                true
+//            }
+////            R.id.deleteItem -> {
+////                removeItem()
+////                true
+////            }
+//            else -> super.onOptionsItemSelected(item)
+//        }
+//    }
+
 }

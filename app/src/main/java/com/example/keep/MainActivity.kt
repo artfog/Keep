@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity(), ClickListener {
 
     private val items = mutableListOf<TextItems>()
 
-    private lateinit var adapter: KeepRecyclerAdapter
+   private lateinit var adapter: KeepRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,13 +31,16 @@ class MainActivity : AppCompatActivity(), ClickListener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-       if (requestCode == REQUEST_CODE_DETAILS && resultCode == RESULT_OK && data != null) {
+
+        if (requestCode == REQUEST_CODE_DETAILS && resultCode == RESULT_OK && data != null) {
             val id = data.getLongExtra(EXTRA_ID, 0)
             val item = db.textItemDao().getItemById(id)
             val position = items.indexOfFirst { it.tid == item.tid }
             items[position] = item
             adapter.notifyItemChanged(position)
         }
+
+
 
     }
      override fun itemClicked(item: TextItems) {
