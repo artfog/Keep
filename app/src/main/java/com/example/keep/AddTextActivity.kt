@@ -34,11 +34,11 @@ class AddTextActivity : AppCompatActivity() {
             editTitle.setText(item.text_title)
             editTextLong.setText(item.text_long)
             addtextButton.setOnClickListener { updateItem() }
-           // buttonDelete.setOnClickListener { removeItem() }
+
             imageDeleteButton.setOnClickListener { removeItem() }
         }
         else {
-          //  buttonDelete.setVisibility(View.INVISIBLE)
+          
             imageDeleteButton.setVisibility(View.INVISIBLE)
             addtextButton.setOnClickListener { appendItem() }
         }
