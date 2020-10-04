@@ -164,7 +164,6 @@ class ImageActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
-            // imageView.setImageURI(photoUri)
 
             setPictures()
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -179,9 +178,7 @@ class ImageActivity : AppCompatActivity() {
         }
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE) {
             imageView.setImageURI(data?.data) // handle chosen image
-           var selectedImage = data?.data
 
-            textView4.text = selectedImage?.host
 //            val item = TextItems("", "", "", data?.data)
 //            item.tid = db.textItemDao().insertAll(item).first()
         }

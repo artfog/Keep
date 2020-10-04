@@ -34,13 +34,13 @@ class MainActivity : AppCompatActivity(), ClickListener {
         }
 
 
-        imageAddButton.setOnClickListener {
+        textAddButton.setOnClickListener {
             val intent = Intent(this, AddTextActivity::class.java)
                 .putExtra(EXTRA_ID, 0)
             startActivityForResult(intent, REQUEST_CODE_DETAILS)
 
           }
-        button.setOnClickListener {
+        imageAddButton.setOnClickListener {
             val intent = Intent(this, ImageActivity::class.java)
                 .putExtra(EXTRA_ID, 0)
             startActivityForResult(intent, REQUEST_CODE_DETAILS)

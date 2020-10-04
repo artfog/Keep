@@ -20,23 +20,25 @@
         tools:listitem="@layout/item_text" />
 
     <ImageView
-        android:id="@+id/imageAddButton"
+        android:id="@+id/textAddButton"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/mainItems"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_baseline_add_circle_24" />
+        app:srcCompat="@drawable/ic_baseline_chat_24" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="29dp"
-        tools:layout_editor_absoluteY="528dp" />
+    <ImageView
+        android:id="@+id/imageAddButton"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/mainItems"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.021"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_baseline_add_a_photo_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
