@@ -55,15 +55,12 @@ class AddTextActivity : AppCompatActivity() {
 //
     private fun appendItem() {
 
-        val item = TextItems(editTitle.text.toString(), editTextLong.text.toString(), textBgColor.selectedItem.toString())
+        val item = TextItems(editTitle.text.toString(), editTextLong.text.toString(), textBgColor.selectedItem.toString(), "")
         item.tid = db.textItemDao().insertAll(item).first()
-       // val tids = db.textItemDao().insertAll(item).first()
-           // items.add(item)
-    //        adapter.notifyItemInserted(items.size+1)
-    //        mainItems.smoothScrollToPosition(0)
-        //println("tid = $tids")
+
         val intent = Intent().putExtra(EXTRA2,3L)
         setResult(RESULT_OK, intent)
+        Toast.makeText(this, R.string.item_create, Toast.LENGTH_SHORT).show()
         finish()
     }
 
@@ -72,10 +69,6 @@ class AddTextActivity : AppCompatActivity() {
         val id = intent.getLongExtra(EXTRA_ID, 0)
         val item = db.textItemDao().getItemById(id)
         db.textItemDao().delete(item)
-//        val position = items.indexOfFirst { it.tid == item.tid }
-//        println("id $id")
-//        adapter.notifyItemRemoved(position)
-
         val intent = Intent().putExtra(EXTRA_ID, item.tid).putExtra(EXTRA2,3L)
         setResult(RESULT_OK, intent)
         finish()
@@ -85,18 +78,21 @@ class AddTextActivity : AppCompatActivity() {
     private fun updateItem() {
         val id = intent.getLongExtra(EXTRA_ID, 0)
         val item = db.textItemDao().getItemById(id)
+        var bgcolor = textBgColor.selectedItem.toString()
+        if (bgcolor =="") bgcolor="yellow"
 
         db.textItemDao().update(
             item.copy(
                 text_title = editTitle.text.toString(),
                 text_long = editTextLong.text.toString(),
-                text_bg_color = textBgColor.selectedItem.toString()
+                text_bg_color = bgcolor
+               // text_bg_color = textBgColor.selectedItem.toString()
             )
         )
        //println("id $id")
         val intent = Intent().putExtra(EXTRA_ID, item.tid).putExtra(EXTRA2,1L)
         setResult(RESULT_OK, intent)
-
+        Toast.makeText(this, R.string.item_update, Toast.LENGTH_SHORT).show()
         finish()
     }
 
@@ -114,7 +110,6 @@ class AddTextActivity : AppCompatActivity() {
                 true
             }
             R.id.shareInfo -> {
-
 
                 val sendIntent = Intent(Intent.ACTION_SENDTO).apply {
                     data = Uri.parse("mailto:")
@@ -134,7 +129,7 @@ class AddTextActivity : AppCompatActivity() {
                 .setMessage(R.string.delete_info)
                     .setPositiveButton(R.string.delete) { _, _ ->
                         removeItem()
-                        Toast.makeText(this, R.string.item_delete, Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, R.string.item_delete, Toast.LENGTH_SHORT).show()
                     }
                     .setNegativeButton(R.string.cancel) { _, _ -> }
                 val dialog = builder.create()

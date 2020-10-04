@@ -7,9 +7,13 @@
     <string name="add_text">Pievienot tekstu</string>
     <string name="save">Saglabāt</string>
     <string name="delete">Dzēst</string>
+    <string name="gallery">Galerija</string>
+    <string name="camera">Camera</string>
     <string name="cancel">Atcelt</string>
     <string name="share">Kopīgot</string>
     <string name="color">Izvēlies krāsu:</string>
+    <string name="item_create">Ieraksts izveidots!</string>
     <string name="item_delete">Ieraksts izdzēsts!</string>
+    <string name="item_update">Ieraksts labots!</string>
     <string name="delete_info">Vai tiešām vēlies dzēst šo ierakstu?</string>
 </resources>

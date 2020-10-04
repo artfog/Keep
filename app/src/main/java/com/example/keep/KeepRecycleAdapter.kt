@@ -3,7 +3,10 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_add_text.*
@@ -31,13 +34,21 @@ class KeepRecyclerAdapter(
         val item = items[position]
         holder.itemView.textTitle.text = item.text_title
         holder.itemView.textMore.text = item.text_long
+        if (item.text_title == "") {
+            holder.itemView.imageShow.setScaleType(ImageView.ScaleType.FIT_XY)
+            holder.itemView.imageShow.setImageURI(item.text_image.toUri())
+        }
+        else holder.itemView.imageShow.visibility = View.INVISIBLE
         var colorBG = item.text_bg_color
-        if (colorBG == "Red") colorBG = "#F09393"
-        else if(colorBG == "Green") colorBG = "#A7F282"
-        else if(colorBG == "Blue") colorBG = "#82D2F2"
-        else if(colorBG == "Pink") colorBG = "#F2ACF3"
-        else colorBG = "#F2F6BC"
-        if (item.text_bg_color != "") holder.itemView.setBackgroundColor(Color.parseColor(colorBG))
+        colorBG = when (colorBG) {
+            "Red" -> "#F09393"
+            "Green" -> "#A7F282"
+            "Blue" -> "#82D2F2"
+            "Pink" -> "#F2ACF3"
+            else -> "#F2F6BC"
+        }
+
+        if (item.text_bg_color != "")  holder.itemView.cardView.setCardBackgroundColor(Color.parseColor(colorBG))
         holder.itemView.setOnClickListener {
             listener.itemClicked(items[position])
         }

@@ -9,6 +9,7 @@ data class TextItems(
     val text_title: String,
     val text_long: String,
     val text_bg_color: String,
+    val text_image: String,
     @PrimaryKey(autoGenerate = true) var tid: Long = 0
 )
 

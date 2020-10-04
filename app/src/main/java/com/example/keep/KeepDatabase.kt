@@ -17,7 +17,7 @@ object Database {
     private var instance: KeepDatabase? = null
 
     fun getInstance(context: Context) = instance ?: Room.databaseBuilder(
-        context.applicationContext, KeepDatabase::class.java, "g-keep-db"
+        context.applicationContext, KeepDatabase::class.java, "aimy-keep"
     )
         .allowMainThreadQueries()
         .build()

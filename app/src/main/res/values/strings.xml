@@ -6,10 +6,14 @@
     <string name="add_text">Add Text</string>
     <string name="save">Save</string>
     <string name="delete">Delete</string>
+    <string name="gallery">Gallery</string>
+    <string name="camera">Camera</string>
     <string name="cancel">Cancel</string>
     <string name="share">Share</string>
     <string name="color">Choose color:</string>
+    <string name="item_create">Item created!</string>
     <string name="item_delete">Item deleted!</string>
+    <string name="item_update">Item updated!</string>
     <string name="delete_info">Do you relay want to delete this item?</string>
 
 
