@@ -33,13 +33,16 @@ class KeepRecyclerAdapter(
     override fun onBindViewHolder(holder: KeepViewHolder, position: Int) {
         val item = items[position]
         holder.itemView.textTitle.text = item.text_title
+
         if (item.text_long == "")  holder.itemView.textMore.visibility = View.INVISIBLE
         else holder.itemView.textMore.text = item.text_long
+
         if (item.text_title == "") {
             holder.itemView.imageShow.setScaleType(ImageView.ScaleType.FIT_XY)
             holder.itemView.imageShow.setImageURI(item.text_image.toUri())
         }
-        else holder.itemView.imageShow.visibility = View.INVISIBLE
+        else holder.itemView.imageShow.visibility = View.GONE
+
         var colorBG = item.text_bg_color
         colorBG = when (colorBG) {
             "Red" -> "#F09393"

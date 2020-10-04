@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity(), ClickListener {
         items.sortByDescending { it.tid }
         adapter = KeepRecyclerAdapter(this, items)
         mainItems.adapter = adapter
+
         val orientation = this.resources.configuration.orientation
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             mainItems.layoutManager =

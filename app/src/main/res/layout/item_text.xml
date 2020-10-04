@@ -15,14 +15,13 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?selectableItemBackground"
-    >
+    android:layout_height="wrap_content"
+    android:background="?selectableItemBackground">
 
 
     <TextView
         android:id="@+id/textTitle"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="6dp"
         android:layout_marginStart="4dp"
@@ -51,7 +50,8 @@
     <ImageView
         android:id="@+id/imageShow"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="228dp"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
