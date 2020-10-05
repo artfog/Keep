@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity(), ClickListener {
             startActivityForResult(intent, REQUEST_CODE_DETAILS)
 
           }
+
         imageAddButton.setOnClickListener {
             val intent = Intent(this, ImageActivity::class.java)
                 .putExtra(EXTRA_ID, 0)
@@ -71,15 +72,12 @@ class MainActivity : AppCompatActivity(), ClickListener {
                 adapter = KeepRecyclerAdapter(this, items)
                 mainItems.adapter = adapter
                 mainItems.smoothScrollToPosition(0)
-
             }
         }
-
-
-
     }
+
      override fun itemClicked(item: TextItems) {
-         if (item.text_title == "") {
+         if (item.text_title == "" && item.text_long == "") {
              val intent = Intent(this, ImageActivity::class.java)
                  .putExtra(EXTRA_ID, item.tid)
              startActivityForResult(intent, REQUEST_CODE_DETAILS)
@@ -89,8 +87,6 @@ class MainActivity : AppCompatActivity(), ClickListener {
                  .putExtra(EXTRA_ID, item.tid)
              startActivityForResult(intent, REQUEST_CODE_DETAILS)
          }
-
-
     }
 
     companion object {

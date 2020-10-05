@@ -32,27 +32,31 @@ class KeepRecyclerAdapter(
 
     override fun onBindViewHolder(holder: KeepViewHolder, position: Int) {
         val item = items[position]
-        holder.itemView.textTitle.text = item.text_title
 
-        if (item.text_long == "")  holder.itemView.textMore.visibility = View.INVISIBLE
+        if (item.text_title == "")  holder.itemView.textTitle.visibility = View.GONE
+        else holder.itemView.textTitle.text = item.text_title
+
+        if (item.text_long == "")  holder.itemView.textMore.visibility = View.GONE
         else holder.itemView.textMore.text = item.text_long
 
-        if (item.text_title == "") {
+        if (item.text_title == "" && item.text_long == "") {
             holder.itemView.imageShow.setScaleType(ImageView.ScaleType.FIT_XY)
             holder.itemView.imageShow.setImageURI(item.text_image.toUri())
         }
         else holder.itemView.imageShow.visibility = View.GONE
 
-        var colorBG = item.text_bg_color
-        colorBG = when (colorBG) {
-            "Red" -> "#F09393"
-            "Green" -> "#A7F282"
-            "Blue" -> "#82D2F2"
-            "Pink" -> "#F2ACF3"
-            else -> "#F2F6BC"
+        if (item.text_bg_color != "") {
+            var colorBG = item.text_bg_color
+            colorBG = when (colorBG) {
+                "Red" -> "#F09393"
+                "Green" -> "#A7F282"
+                "Blue" -> "#82D2F2"
+                "Pink" -> "#F2ACF3"
+                else -> "#F2F6BC"
+            }
+            holder.itemView.cardView.setCardBackgroundColor(Color.parseColor(colorBG))
         }
 
-        if (item.text_bg_color != "")  holder.itemView.cardView.setCardBackgroundColor(Color.parseColor(colorBG))
         holder.itemView.setOnClickListener {
             listener.itemClicked(items[position])
         }

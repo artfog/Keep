@@ -4,6 +4,8 @@ package com.example.keep
 import android.app.AlertDialog
 import android.content.ContentProvider
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.Color.red
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,10 +14,12 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.view.isVisible
 import com.example.keep.MainActivity.Companion.EXTRA2
 import com.example.keep.MainActivity.Companion.EXTRA_ID
 import kotlinx.android.synthetic.main.activity_add_text.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.item_text.view.*
 
 class AddTextActivity : AppCompatActivity() {
     private val db get() = Database.getInstance(this)
@@ -34,25 +38,33 @@ class AddTextActivity : AppCompatActivity() {
 
 
         if (id > 0){
-            addtextButton.text = getString(R.string.save)
-
+           // addtextButton.text = getString(R.string.save)
+            var colorBG = item.text_bg_color
+            colorBG = when (colorBG) {
+                "Red" -> "#F09393"
+                "Green" -> "#A7F282"
+                "Blue" -> "#82D2F2"
+                "Pink" -> "#F2ACF3"
+                else -> "#F2F6BC"
+            }
+         //   holder.itemView.cardView.setCardBackgroundColor(Color.parseColor(colorBG))
+            window.decorView.setBackgroundColor(Color.parseColor(colorBG));
+            addtextButton.visibility = View.GONE
             editTitle.setText(item.text_title)
             editTextLong.setText(item.text_long)
+            editTitle.isFocusable = false
+            editTextLong.isFocusable = false
+            textBgColor.isEnabled = false
             val units = resources.getStringArray(R.array.color_list)
 
             textBgColor.setSelection(units.indexOfFirst { it == item.text_bg_color })
             addtextButton.setOnClickListener { updateItem() }
-
-            //imageDeleteButton.setOnClickListener { removeItem() }
         }
         else {
-
-            //imageDeleteButton.setVisibility(View.INVISIBLE)
             addtextButton.setOnClickListener { appendItem() }
         }
     }
 
-//
     private fun appendItem() {
 
         val item = TextItems(editTitle.text.toString(), editTextLong.text.toString(), textBgColor.selectedItem.toString(), "")
@@ -86,10 +98,9 @@ class AddTextActivity : AppCompatActivity() {
                 text_title = editTitle.text.toString(),
                 text_long = editTextLong.text.toString(),
                 text_bg_color = bgcolor
-               // text_bg_color = textBgColor.selectedItem.toString()
             )
         )
-       //println("id $id")
+
         val intent = Intent().putExtra(EXTRA_ID, item.tid).putExtra(EXTRA2,1L)
         setResult(RESULT_OK, intent)
         Toast.makeText(this, R.string.item_update, Toast.LENGTH_SHORT).show()
@@ -109,11 +120,17 @@ class AddTextActivity : AppCompatActivity() {
                 finish()
                 true
             }
+            R.id.editItem ->{
+                addtextButton.text = getString(R.string.save)
+                addtextButton.visibility = View.VISIBLE
+                editTitle.isFocusableInTouchMode = true
+                editTextLong.isFocusableInTouchMode = true
+                textBgColor.isEnabled = true
+                true
+            }
             R.id.shareInfo -> {
-
                 val sendIntent = Intent(Intent.ACTION_SENDTO).apply {
                     data = Uri.parse("mailto:")
-//                  putExtra(Intent.EXTRA_EMAIL, arrayOf(editEmail.text.toString()))
                     putExtra(Intent.EXTRA_SUBJECT, editTitle.text.toString())
                     putExtra(Intent.EXTRA_TEXT, editTextLong.text.toString())
                 }
@@ -134,9 +151,6 @@ class AddTextActivity : AppCompatActivity() {
                     .setNegativeButton(R.string.cancel) { _, _ -> }
                 val dialog = builder.create()
                 dialog.show()
-
-
-
                 true
             }
             else -> super.onOptionsItemSelected(item)

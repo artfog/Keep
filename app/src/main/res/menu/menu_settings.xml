@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/editItem"
+        android:title="@string/edit"
+        android:icon="@drawable/ic_baseline_edit_24"
+        app:showAsAction="always"/>
+    <item
         android:id="@+id/shareInfo"
         android:title="@string/share"
         android:icon="@drawable/ic_baseline_share_24"

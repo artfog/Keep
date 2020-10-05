@@ -61,7 +61,6 @@ class ImageActivity : AppCompatActivity() {
 
 
     private fun removeItem() {
-
         val id = intent.getLongExtra(MainActivity.EXTRA_ID, 0)
         val item = db.textItemDao().getItemById(id)
         db.textItemDao().delete(item)
@@ -71,7 +70,6 @@ class ImageActivity : AppCompatActivity() {
         )
         setResult(RESULT_OK, intent)
         finish()
-
     }
 
     private fun takePicture() {
@@ -94,6 +92,7 @@ class ImageActivity : AppCompatActivity() {
             }
         }
     }
+
     @Throws(IOException::class)
     private fun createImageFile(): File {
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
@@ -159,10 +158,11 @@ class ImageActivity : AppCompatActivity() {
 
         intent.data = uri
         sendBroadcast(intent)
-
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        //camera
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
 
             setPictures()
@@ -176,6 +176,7 @@ class ImageActivity : AppCompatActivity() {
             val item = TextItems("", "", "", currentPhotoPath)
             item.tid = db.textItemDao().insertAll(item).first()
         }
+        //gallery
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE) {
             imageView.setImageURI(data?.data) // handle chosen image
 
@@ -194,7 +195,7 @@ class ImageActivity : AppCompatActivity() {
         return true
     }
 
-    //back button
+    //menu buttons
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {

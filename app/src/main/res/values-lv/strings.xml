@@ -6,6 +6,7 @@
     <string name="text">Teksts:</string>
     <string name="add_text">Pievienot tekstu</string>
     <string name="save">Saglabāt</string>
+    <string name="edit">Labot</string>
     <string name="delete">Dzēst</string>
     <string name="gallery">Galerija</string>
     <string name="camera">Camera</string>
