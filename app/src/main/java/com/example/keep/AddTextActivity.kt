@@ -2,24 +2,18 @@ package com.example.keep
 
 
 import android.app.AlertDialog
-import android.content.ContentProvider
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.Color.red
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.view.isVisible
+import androidx.appcompat.app.AppCompatActivity
 import com.example.keep.MainActivity.Companion.EXTRA2
 import com.example.keep.MainActivity.Companion.EXTRA_ID
 import kotlinx.android.synthetic.main.activity_add_text.*
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.item_text.view.*
 
 class AddTextActivity : AppCompatActivity() {
     private val db get() = Database.getInstance(this)
@@ -38,26 +32,41 @@ class AddTextActivity : AppCompatActivity() {
 
 
         if (id > 0){
-           // addtextButton.text = getString(R.string.save)
+
             var colorBG = item.text_bg_color
             colorBG = when (colorBG) {
-                "Red" -> "#F09393"
+                "Red" -> "#FCA8A2"
                 "Green" -> "#A7F282"
                 "Blue" -> "#82D2F2"
                 "Pink" -> "#F2ACF3"
                 else -> "#F2F6BC"
             }
-         //   holder.itemView.cardView.setCardBackgroundColor(Color.parseColor(colorBG))
+
             window.decorView.setBackgroundColor(Color.parseColor(colorBG));
             addtextButton.visibility = View.GONE
-            editTitle.setText(item.text_title)
-            editTextLong.setText(item.text_long)
+
+            if (item.text_title == ""){
+                editTitle.visibility = View.GONE
+                textView.visibility = View.GONE
+            }
+            else editTitle.setText(item.text_title)
+
+            if (item.text_long == "") {
+                editTextLong.visibility = View.GONE
+                textView2.visibility = View.GONE
+            }
+            else editTextLong.setText(item.text_long)
+
+
+            textBgColor.visibility = View.GONE
+            textView3.visibility = View.GONE
+            val units = resources.getStringArray(R.array.color_list)
+            textBgColor.setSelection(units.indexOfFirst { it == item.text_bg_color })
+
             editTitle.isFocusable = false
             editTextLong.isFocusable = false
             textBgColor.isEnabled = false
-            val units = resources.getStringArray(R.array.color_list)
 
-            textBgColor.setSelection(units.indexOfFirst { it == item.text_bg_color })
             addtextButton.setOnClickListener { updateItem() }
         }
         else {
@@ -123,6 +132,12 @@ class AddTextActivity : AppCompatActivity() {
             R.id.editItem ->{
                 addtextButton.text = getString(R.string.save)
                 addtextButton.visibility = View.VISIBLE
+                editTitle.visibility = View.VISIBLE
+                editTextLong.visibility = View.VISIBLE
+                textBgColor.visibility = View.VISIBLE
+                textView.visibility = View.VISIBLE
+                textView2.visibility = View.VISIBLE
+                textView3.visibility = View.VISIBLE
                 editTitle.isFocusableInTouchMode = true
                 editTextLong.isFocusableInTouchMode = true
                 textBgColor.isEnabled = true
@@ -140,7 +155,6 @@ class AddTextActivity : AppCompatActivity() {
                 true
             }
             R.id.deleteItem -> {
-
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle(R.string.delete)
                 .setMessage(R.string.delete_info)

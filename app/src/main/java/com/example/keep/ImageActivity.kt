@@ -45,8 +45,9 @@ class ImageActivity : AppCompatActivity() {
 
         val id = intent.getLongExtra(MainActivity.EXTRA_ID, 0)
         val item = db.textItemDao().getItemById(id)
+
        if (id > 0 ){
-           imageView.setScaleType(ImageView.ScaleType.FIT_XY)
+           imageView.scaleType = ImageView.ScaleType.FIT_XY
            imageView.setImageURI(item.text_image.toUri())
        }
 

@@ -40,7 +40,7 @@ class KeepRecyclerAdapter(
         else holder.itemView.textMore.text = item.text_long
 
         if (item.text_title == "" && item.text_long == "") {
-            holder.itemView.imageShow.setScaleType(ImageView.ScaleType.FIT_XY)
+            holder.itemView.imageShow.scaleType = ImageView.ScaleType.FIT_XY
             holder.itemView.imageShow.setImageURI(item.text_image.toUri())
         }
         else holder.itemView.imageShow.visibility = View.GONE
@@ -48,7 +48,7 @@ class KeepRecyclerAdapter(
         if (item.text_bg_color != "") {
             var colorBG = item.text_bg_color
             colorBG = when (colorBG) {
-                "Red" -> "#F09393"
+                "Red" -> "#FCA8A2"
                 "Green" -> "#A7F282"
                 "Blue" -> "#82D2F2"
                 "Pink" -> "#F2ACF3"
